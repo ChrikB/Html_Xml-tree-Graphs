@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>XML/HTML Tree Graphs</title>
+
+
+<style type="text/css">
+#container{width:800px;margin:auto;}
+.contentSection{width:800px;border-top:1px solid #000000;}
+</style>
+
+</head>
+<body>
+     <div id="container">
+        <div id="AppName"><h2><u>XML/HTML Tree Graphs</u><i> by TranceIntel</i></h2></div>
+		<div id="Rights">
+		Created: 20/1/2014<br>
+        By: TranceIntel
+        </div>
+        <div id="Contents">
+		     <ol>
+                <li><a href="#Introduction">Introduction</a></li>
+                <li><a href="#Files">Files</a></li>
+                <li><a href="#StartPage">Start Page</a></li>
+				<li><a href="#Example">Example-input</a></li>
+				<li><a href="#Output">Output</a></li>
+				<li><a href="#JavasctiptCode">Javasctipt Explanation</a></li>
+             </ol>
+        </div>
+		<div class="contentSection" id="Introduction">
+		    <h2>A)Introduction</h2>
+			<p>This tool accepts xml,html and xhtml structures and creates an svg tree output.Let's say that it gives visual appearence to the input through svg and its 100% stand-alone tool.You only need a broswer.</p>
+			<h3>Why and when it is usefull</h3>
+			<ol>
+			<li>Debugging</li>
+			<li>Presentation</li>
+			</ol>
+			<h4>Debugging</h4>
+			<p>When you are working with large xml,html files witch include a lot of elements,parents and subElements.<br>If you want for example to manipulate dom with javascript or php,it may become exhausting for your eyes to check the DOM-flow through inspect element or by reading the xml based file directly.Personally this progress made me a couple of times to loose my concetration to the flow and trying to call a className,for example, with the wrong key.This tool just save some space on your mind which you were using to remember things about DOM and makes the DOM watching much easier for your eyes.</p>
+			<h4>Presentation</h4>
+			<p>If you are a project manager of a complex sql system and you need to explain the interaction between tables to your developers,make an xml and show them the generated graph from this tool.<br>
+	           Do the same to teach system's functionality to a new employer.		
+			</p>
+			<p>If you are a teacher in computer science use this tree-graphs to explain to your students the inheritance in programming.</p>
+        </div>
+		
+		
+		
+		
+		
+		
+		<div class="contentSection" id="Files">
+		   <h2>B)Files</h2>
+		 The main folder contains 3 sub-folders.
+		 1 folder  for html input <br>
+		 1 folder  for xml-based input.<br>
+		 Every of two folders above contains a .js file, a css file and the main html page.<br>
+		 1 folder for the documentation.Open the html file in documentation-folder and click the documentation.html
+		</div>
+		
+		
+		<div class="contentSection" id="StartPage">
+		<h2>C)Start Page</h2>
+		<p>If you want to import xml go to 'xml-trees' folder and open the 'xml_trees.html'</p>
+		<p>If you want to import html go to 'html-trees' folder and open the 'html_trees.html'</p>
+		<p>The only difference between them is that 'html-trees.html' makes use of some functions to clear your input from all html-comments,script tags and void-elements(Void elements are the elements which can not havr childNodes,like &lt;br&gt;)</p>
+
+        <p>The html file is the main page of the application.At the first stage ,we can see there a textarea, 2 buttons, 4 input fields with predefined values, 6 underlined labels and some very important notes.
+The design is very simple and flexible.If your broswer allows you to temporary change the dimensions of the textarea by clicking and moving the right bottom corner, the other page elements will be moved in new positions but they will be still clear.Try to maximize textarea's dimensions if it suits more confortable in your eyes.You can change the default dimensions of textare if you chance width and height properties in css file.
+        </p>
+
+         <pre> 
+#inputForJsTree{
+
+         float:left;
+         width:493px;
+         height:145px;
+
+               }
+         </pre>	  
+         <p>To explain more about input fields,labels and buttons you need to have an idea of how the output looks like.Take a look below</p>
+         <img alt="HTML Structure" src="images/treeOne.jpg"/>
+		 <p> The 4 input fields:text-size,sceleton color,text-color and ratio affect only the output.<br>
+<b>Sceleton color</b>- is the color of the black lines.<br>
+<b>Ratio</b>- is the distance between the elements, the length of every black line.Ratio is standard and applies both to vertical and horizontal lines.<br>
+<b>Text color</b>- is the color of red text in the example.<br>
+<b>Text-size</b>- is the Font size.Of course you can have your font-size in em.Px is the default.<br>
+ Remember that you can not have every color you like in text like 'black','red' etc.You will need to put the hex code or rgb code of some colors.RGB or HEX codes for every color you can find in the web without spend time.There are tables with all color codes.<br>
+         </p>
+         <p>Lets continue with the buttons.After you have pasted your xml in the textarea there are still 3 steps.</p>
+         <p>
+<b>Step 1:</b> Your data must be analysed.<br>
+<b>Step 2:</b> Some new options will appear about the output.3 input fields and 2 checkboxes.These are optional<br>
+<b>Step 3:</b> Ready for Graph.<br>
+         <p>
+The 'Start' button starts STEP 1.It analyses your data and opens the new options according to your data.<br>
+
+The 'Create Graph' button starts STEP 3 and creates the output.<br>
+
+Graph cannot be created without Step 1 and Step 2.<br>
+        </p>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		<div class="contentSection" id="Example">
+		  <h2>D)Example</h2>
+		  Below there is an example of xml structure. It will help you to understand Step 2.
+		<p>i)Paste it in the textarea.</p>
+		<pre>
+	  &lt;note&gt;
+             &lt;to&gt;Tove&lt;/to&gt;
+             &lt;from&gt;Jani&lt;/from&gt;
+             &lt;heading&gt;Reminder&lt;/heading&gt;
+             &lt;message&gt;Don't forget me this weekend!&lt;/message&gt;
+          &lt;/note&gt;
+       </pre>
+	   
+	   <p>You need to be carefull of what you put inside textarea.Always follow these rules to avoid cause error or application misbehavior.</p>
+	          <ol>
+	              <li><b>Your input must be valid!Means that if you import html code must follow the correct html syntax.If you import XML MUST follow xml syntax rules etc.</b></li>
+				  <li><b>Before you import xml code, remove all the comments</b></li>
+			      <li><b>The code you paste must have ONE root element.The main father!<a href="#root">Root</a></b></li>
+                  <li><b>If you are going to import html code.Wrap ONLY the body tags and its contents.Also rename the body opened and closed tags to something else like "&lt;abody&gt;" and "&lt;/abody&gt;"</b></li>					  
+				  <li><b>Dont paste the declarations like &lt;?xml version="1.0" ?&gt; They will be ignored or they may be treaten as unclosed tags in some cases.</b></li>
+				  <li><b>ALWAYS follow these  rules.</b></li>
+	          </ol>
+			  
+			  <pre id="root">
+&lt;root&gt;
+  &lt;child&gt;
+    &lt;subchild&gt;.....&lt;/subchild&gt;
+  &lt;/child&gt;
+&lt;/root&gt;
+			  </pre>
+			  
+        <p>ii)Change text-color,text-size,sceleton color and ratio if you dont like the default values.<p>
+		<p>iii)Press 'START' button</p>
+        
+
+	    After "START" button will have finished its job and data analysis will be completed you will see something like the image below.
+	   
+	   <img src="images/step2.jpg" alt="Step 2" />
+	   
+	   <p>The number of these checkboxes and inputs depends of the LAYER DEPTH X of your data. Its layer has its own 2 checkboxes and 3 inputs</p>
+	   <p>So lets explain what LAYER DEPTH X means.While you can see its value inside an input field,you must know that it's not editable.Its a read-only value which helps you fill the other fields.</p>
+	   
+	   <p>In our xml example there are 2 layers.The layer 0  and the layer 1. So how does it count??</p>
+	   <p><b>LAYER DEPTH X is the  number of layer of your xml/html elements</b>.When an element has chilren a new layer is been created.In our example the element "note" has 4 children but none of the children has children.So as we start from layer 0, we continue to layer 1 and we stop,because none of elements of layer 1 has children. So the maximum layer number is '1'.<br>Every element or every group of elements belong to one and only one layer. The "Note" Element belongs to layer 0, the "to","from","heading" and "message" elements belong to layer 1.</p>
+	   
+	   <p>Lets see a different example</p>
+	     <pre>
+	   &lt;note&gt;
+             &lt;to&gt;Tove&lt;/to&gt;
+             &lt;from&gt;
+			 &lt;child&gt;
+			 brian
+			 &lt;/child&gt;
+	     &lt;/from&gt;
+             &lt;heading&gt;Reminder&lt;/heading&gt;
+             &lt;message&gt;Don't forget me this weekend!&lt;/message&gt;
+          &lt;/note&gt;
+       </pre>
+	   
+	   <p>in the example above there are 3 layers.Layer 0 starts with "note",layer 1 starts because "note" has children and layer 2 starts because "from" has at least one element as child,the element "child".<br>So the "Note" Element belongs to layer 0, the "to","from","heading" and "message" elements belong to layer 1 and the "child" element belongs to layer 2</p>
+	   
+	   <p>Lets close the tutorial about "layers" with one last example</p>
+	   
+	   
+	    <pre>
+      &lt;note&gt;
+             &lt;to&gt;Tove&lt;/to&gt;
+             &lt;PriceOne&gt;
+			 &lt;miniTitle&gt;
+			 only 2 usd
+			 &lt;/miniTitle&gt;
+	     &lt;/PriceOne&gt;
+             &lt;heading&gt;
+			 &lt;megaTitle&gt;
+			            &lt;Advert&gt; 
+						Only 5 usd
+				    &lt;/Advert&gt;
+			&lt;/megaTitle&gt;
+	    &lt;/heading&gt;
+             &lt;message&gt; Don't forget it &lt;/message&gt;
+      &lt;/note&gt;
+       </pre>
+	   
+	   See below how elements belong to layers.. <br>
+	   <b>Layer 0:</b>"Note" <br>
+	   <b>Layer 1:</b>"to" ,"PriceOne" ,"heading" ,"message" <br>
+	   <b>Layer 2:</b>"minititle" , "megatitle" <br>
+	   <b>Layer 3:</b>"advert"  <br>
+	   
+	   <p>Have this image in your mind to avoid confusion</p>
+	   <img src="images/layers.jpg" alt="layers" />
+
+		
+	    </div>
+		
+		
+		<div class="contentSection" id="Output">
+		  <h2>E)Output</h2>
+		  <p>Lets explain now what we can see in this image</p>
+	   
+	   <img src="images/step2.jpg" alt="Step 2" />
+	   
+	   <p>Look checkboxes and input fields horizontal.</p>
+	   <p>The first row affects all the elements in layer 0.</p>
+	   <p>The second row affects all the elements in layer 1, etc</p>
+	   <p>With this menu you can affect the labels of elements in the output.In simple words, you can affect what text will be printed the svg output.</p>
+	   <p>Take again the example below</p>
+	   <pre>
+	  &lt;note&gt;
+             &lt;to age="18"&gt;Tove&lt;/to&gt;
+             &lt;from age="19"&gt;Jani&lt;/from&gt;
+             &lt;heading&gt;Reminder&lt;/heading&gt;
+             &lt;message&gt;Don't forget me this weekend!&lt;/message&gt;
+          &lt;/note&gt;
+       </pre>
+	   <p><b>Tag Names:-</b>"note","to","from","heading","message". TagName its the text between &lt; and &gt;. Every element has a tagname.Check the box if you want tagNames to appear in svg output.</p> <br>
+	    <p><b>Text contents:-</b>Some elements may have text content.In this example,element with tag name"to" has the text content "Tove", element with tagname "from" has the text content "Jani"etc. But has the element with tagName "note" any text contents??
+Yes it has. It contains all text contents of its children.So its text content is "Tove","Jani","Reminder" and "Don't forget me this weekend!".Be carefull with that.If you want to print text contents of elements,always choose the layer with the higher depth X.
+		</p> <br>
+		<p><b>Attribute Name:-</b>Some elements may have one or more attributes. The element with tagName "to" has the attribute "age".If you want to print the value of a specific attribute(18 in example) in the graph, type the name of the attribute in the "Attribute Name"field.</p> <br>
+		 <p><b>Separate Symbol:-</b>I added this in case you want to print more than one thing.For example if you want to print tagname and text content of element with tagName "to".The output will look like to#Tove, if you have choosen the "#" as "separate symbol"</p> <br>
+		 <p><b>Label length:-</b>This is the last.Have in mind that this tool is for short labels.By filling this field with the value "6" for example ,you command the code to give you label names with 6 letters.It will cut the rest. A good solution if you want to print labels with large length is to give to text-size a smaller value and set a higher ratio.</p> <br>
+
+		
+		</div>
+		
+		
+		
+		
+		
+		
+		<div class="contentSection" id="JavasctiptCode">
+		  <h2>F)Javasctipt</h2>
+		  <p>There is only one javascript file full of custom functions</p>
+		
+		<p>The code has 3 basic stages</p>
+		<ol>
+			<li>validate input and if some tagNames match to some of html predefined tags,rename them to something similar,like body^ .</li>
+			<li>Analize xml code and find the depth layer of each element</li>
+			<li>Take the analized code and build the svg</li>
+		</ol>
+		
+        <p>The code has very common syntax.You need to pay more attention to logic than the syntax of code.</p>		
+		  
+		 <p>Lets start....<p> 
+		 
+		 <p>The logic is:<br> a)Take the input(xml,html or xhtml) from user <br>b)Put it in a HIDDEN div.<br>c)Parse the input with dom methods.<br>d)Do some maths and compute the depth x and y of each element.<br>e)If we have depth x and y of each element, it is easy to multiply them all with a standar number and build the svg</p> 
+		 <p>But there is a problem here.. How we can parse xml html and xhtml with the same parser??.XML parser of javascript is different than html parser.Definitely html parser is richer and we can do more things,faster and with less lines of code.I wanted to take advantage of the html parser, so the application can have the best possible perfomance.</p>
+		 
+		 <p>The first thing we must do is to take care of the existance of tagNames which match with predefined html tags.For example what will happen if user import xml that has tagNames like "body" and "head".The rules of html synxtax don't allow more than one "body" tag.Broswer will totally ignore the second "body" tag. To solve these  kind of problems i made use of some of the broswers abilities.</p>
+		 
+		 <p>--Broswers allow custom tags and Internet explorer also! They treat them as span elements. Specially Google released Angular.js which promotes custom tags!!</p>
+		 <p>--So it is ok if we rename the tagNames of the user to "tagName^" In our example &lt;body&gt; tag has a special meaning in broswers, but  &lt;body^&gt; means nothing</p>
+		 
+		 <p>The first line of code is an array with all predefined html tags.We loop every tagname of user's input and we test if matched to an element of this array.If it  matches we will rename it, adding the "^" symbol at the end of it.</p>
+		 
+		 <pre> 
+		  
+		  var tagRepl = ["&lt;!DOCTYPE&gt;", "&lt;a&gt;", "&lt;abbr&gt;", "&lt;acronym&gt;".....];
+		  
+		  for(var cu=0;cu&lt;tagReplLen;cu++){
+
+      var regA = new RegExp(tagRepl[cu],"gim");
+      var regB = new RegExp("<\/"+tagRepl[cu].substring(1),"gim");
+      var regC = new RegExp(tagRepl[cu].substring(0,tagRepl[cu].length-1)+"\\s","gim");
+      
+                   if(regA.test(scrsource)){
+
+                        scrsource = scrsource.replace(regA,tagRepl[cu].substr(0,tagRepl[cu].length-1)+'^>');
+
+                                           }
+
+                   if(regB.test(scrsource)){
+
+
+                        scrsource = scrsource.replace(regB,'</'+tagRepl[cu].substr(1,tagRepl[cu].length-2)+'^>');
+
+
+                                           }
+                   if(regC.test(scrsource)){ 
+
+                        scrsource = scrsource.replace(regC,'<'+tagRepl[cu].substr(1,tagRepl[cu].length-2)+'^ ');
+
+                                           }
+
+                                }
+		  
+		  </pre>
+		  
+		  <p>The second problem is the attribute with name "id".Broswers allow also an element to have the same id with another element.The only problem is with javascript command "document.getElementByID("SOMETHING") and with external or internal stylesheets</p>
+		  <p>The above problem will appear if the user's xml data have the same id with the ids of the main html page of the application.Hard to happen and it is not impossible.<b>The problem easily solved by putting in comments the import of the user.</b></p>
+		  <p>After checking for predefined tags.Script puts the user's data in the DIV element with id="fff" and it comments its content.</p>
+		  <p>Below you can see the part of code which makes them comment and removes comment for analyze.</p>
+		  
+		  
+		  
+		  <pre>
+		  MakeThemComment(){
+		                    var contentCustom = document.getElementById("fff").innerHTML;
+                            document.getElementById("fff").innerHTML="&lt;!--aDeadDivs"+contentCustom+"aDeadDivs--&gt;";
+                           }
+						   
+		function MakeThemUnComment(){
+                          var theInnerContx = document.getElementById("fff").innerHTML;
+
+                          document.getElementById("fff").innerHTML=theInnerContx.substring(13,theInnerContx.length-13);
+                                    }				   
+		  </pre>
+		  
+		  
+		  
+		  <p>At this part we have succeeded to import the xml or html data inside a DIV  as children.The input is ready for analysis.</p>
+		  
+		  <p>Function with name EXPLODE is a recursive function and computes the depth X and Depth Y of each element inside the hidden div with id="fff"</p>
+		  
+		  <p>When analysis is completed. The addCustomOptions() function is called to create these options <a href="#Output">Output Options</a> based on the number of layers.<p>
+		  <p>Now every element inside the DIV with id="fff" has a x and a y attribute.Its time to build the output.</p>
+		  <p>The building of output is a job for the <b>function graaaa(foCol,foSiz,sceCol,ratio)</b>  foCol=font-color, foSize=text-size,sceCol=Sceleton Color, Ratio=ratio.</p>
+		  <p>This function has 3 stages.<br> a)Call the function graphTag(); to create an svg element and put it as hidden child to the document.<br>
+		                                 b)loop every child of element with id="fff"<br>
+										 c)detect the number of sub-children of every element to compute the x,y of every single line.<br>
+										 d)Call the function graph(x1,y1,x2,y2,sceCol); to create a line tag and add it to svg from step a.<br>
+										 e)build a text element for every element.This text will be the label of the element.<br>
+										 f)build a box for every element.The box will be behind the text to make the output prettier.<br>
+										 
+										 
+		  </p>
+		  
+		  <p>The last part of code just take the hidden element div which contains the svg code form step a) above and puts it to a new window.It also adds a function which will be called when you mouse over the SVG Labels.This function will create a div with information about the element you hover, like attributes and tagName</p>
+		  
+		  <pre>
+               var newWindow = window.open();
+               newWindow.document.write(document.getElementById("graphContent").innerHTML);
+               newWindow.document.close();
+          </pre>
+
+		  
+		</div>
+		
+		
+		
+		
+		
+		
+    </div>
+</body>
+
+</html>

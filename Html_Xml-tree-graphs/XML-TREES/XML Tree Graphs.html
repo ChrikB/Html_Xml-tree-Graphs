@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+   
+             
+             
+<head>
+<meta charset="UTF-8">
+<title>HTML-XML GraphTrees</title>
+
+
+
+<script type="text/javascript" src="XML Tree Graphs.js"></script>
+<link rel="stylesheet" type="text/css" href="XML_HTML Tree Graphs.css">
+
+</head>
+<body style="font-style:italic;">
+        <div id="controler">
+              <div id="shortdetails">
+                 <span id="Boldname">XML Tree Graphs</span>
+                 <span id="minidescr">A javascript tool which helps you convert your xml and html structures in clear tree graphs</span>
+               </div>
+            
+               <div id="inform">
+                   <textarea rows="9" cols="59" id="inputForJsTree">Paste xml code here</textarea>
+
+                   <div id="graphProperties">
+                       <div><span>Text-Color</span><input type="text" name="fontColor" value="red" id="fontcolor"></div>
+                       <div><span>Text-Size</span><input type="text" name="fontColor" value="14px" id="fontsize"></div>
+                       <div><span>Skeleton-Color</span><input type="text" name="skeletonColor" value="black" id="sceletoncolor"></div>
+                       <div><span>Ratio</span><input type="text" value="100" id="ratio"></div>
+                       <button id="buttonStart" onclick="StartProgress(document.getElementById('inputForJsTree').value);">Start</button>
+                       <button id="buttonParse" onclick="parseCode();">Create GraphTree</button>
+                   </div>
+                   <div id="rules">
+                       <span>*Your input must be a valid xml code.</span><br>
+                       <span>*Always must exist a root element.The main father.(&lt;root&gt;)</span><br>
+					   <span>*Dont paste the declarations like &lt;?xml version="1.0" ?&gt;</span><br>
+                       <span>*Enable Pop Up for the output</span>
+                   </div>
+
+
+
+              </div>
+              <div id="layerLayoutOptions">
+                   <div id="labels">
+                     <span id="LabelTag">Tag Name</span>
+                     <span id="LabelText">Text Content</span>
+                     <span id="LabelAttr">Attribute Name</span>
+                     <span id="LabelLayer">Layer Depth X</span>
+                     <span id="LabelSymbol">Separate Symbol</span>
+                     <span id="LabelLength">Label Length(letters)</span>
+                   </div>
+                   <div id="checkFields"></div>
+              </div>
+       </div>
+
+<div id="fff"></div>
+
+<div id="graphContent"></div>
+
+
+
+</body>
+</html>

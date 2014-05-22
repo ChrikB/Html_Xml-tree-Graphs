@@ -1,0 +1,227 @@
+body{
+
+font-family:Times New Roman;
+font-size:16px;
+
+    }
+
+
+
+#controler{
+
+float:left;
+
+          }
+
+
+#shortdetails{
+
+width:100%;
+height:50px;
+float:left;
+margin-left:5px;
+margin-top:20px;
+padding-bottom:20px;
+
+             }
+
+#Boldname {
+
+font-size:24px;
+margin-left:150px;
+
+          }
+
+#minidescr{
+ 
+font-size:16px;
+margin-left:30px;
+display:inline;
+
+          }
+
+#inform{
+
+float:left;
+
+       }
+
+#inputForJsTree{
+
+float:left;
+width:493px;
+height:145px;
+
+                }
+
+
+
+#graphProperties{
+
+float:left;
+width:170px;
+margin-left:5px;
+                }
+
+
+#graphProperties div{
+
+float:left;
+
+
+                     }
+
+
+#graphProperties span{
+
+width:100px;
+float:left;
+height:20px;
+
+                    }
+
+#rules              {
+
+font-size:13px;
+float:left;
+width:300px;
+                    }
+
+#rules span         {
+
+width:300px;
+                    }
+
+
+
+
+#fontcolor   {
+
+width:50px;
+height:18px;
+float:left;
+             }
+
+
+
+
+#fontsize    {
+
+width:50px;
+height:18px;
+float:left;
+
+              }
+
+
+
+#sceletoncolor{
+
+width:50px;
+height:18px;
+float:left;
+
+               }
+
+
+
+#ratio         {
+
+width:50px;
+height:18px;
+float:left;
+
+               }
+
+
+
+#buttonStart   {
+
+width:153px;
+float:left;
+height:22px;
+margin-top:5px;
+
+               }
+
+
+
+#buttonParse   {
+
+width:153px;
+float:left;
+height:22px;
+margin-top:5px;
+
+               }
+
+
+
+#layerLayoutOptions{
+
+float:left;
+width:700px;
+
+
+                   }
+
+
+#labels     {
+
+float:left;
+
+            }
+
+
+#labels span{
+
+float:left;
+
+            }
+
+
+#checkFields{
+
+width:700px;
+height:auto;
+float:left;
+
+            }
+
+#fff, #graphContent {
+
+display:none;
+
+                    }
+
+
+#LabelTag   {
+   width:80px;
+   text-decoration:underline;
+            }
+
+#LabelText  {
+   width:100px;
+   text-decoration:underline;
+            }
+
+#LabelAttr  {
+   width:120px;
+   text-decoration:underline;
+            }
+
+#LabelLayer {
+   width:110px;
+   text-decoration:underline;
+            }
+
+#LabelSymbol{
+   width:120px;
+   text-decoration:underline;
+            }
+
+#LabelLength{
+   width:150px;
+   text-decoration:underline;
+            }
+
