@@ -2,6 +2,8 @@ Html_Xml-tree-Graphs
 ====================
 This tool accepts xml,html  structures and creates an svg tree output.Let's say that it gives visual appearence to the input through svg and its 100% stand-alone tool.You only need a broswer.
 
+Check 'trees' directory
+
 Why and when it is usefull
 
     .Debugging
