@@ -150,136 +150,88 @@ function Explode(el) {
       var lastElo =  el.parentNode.getElementsByClassName('JsTree');
       var TempNumber = 0;
       if (lastElo.length > 0) {
-      for (var efh = 0; efh < lastElo.length; efh++) {
-        var GetThisY = parseFloat(lastElo[efh].getAttribute('JsTreeDepthY'));
-        var GetNodes = lastElo[efh].children.length;
-        var sumIt = GetThisY+GetNodes;
-	if (sumIt > TempNumber) {
-	  if (sumIt > k){ 
-            TempNumber = sumIt; 
-	  } else { 
-            TempNumber = sumIt + Math.abs(sumIt-k); 
+        for (var efh = 0; efh < lastElo.length; efh++) {
+          var GetThisY = parseFloat(lastElo[efh].getAttribute('JsTreeDepthY'));
+          var GetNodes = lastElo[efh].children.length;
+          var sumIt = GetThisY + GetNodes;
+	  if (sumIt > TempNumber) {
+	    if (sumIt > k){ 
+              TempNumber = sumIt; 
+	    } else { 
+              TempNumber = sumIt + Math.abs(sumIt-k); 
+	    }
 	  }
-	}
+        }
+        el.setAttribute('JsTreeDepthY', TempNumber);
       }
-      el.setAttribute('JsTreeDepthY', TempNumber);
     }
+    if (el.className) { 
+      el.setAttribute("class",el.className + " JsTree"); 
+    } else { 
+      el.setAttribute("class","JsTree"); 
+    }
+    for (var i = 0; i < el.children.length; i++) {
+      rrr = rrr+1; 
+      if (maxRRR < rrr) {
+        maxRRR=rrr;
+      }  
+      var elem = el.children[i];
+      if (i == 0) {
+        elem.setAttribute('JsTreeDepthY', parseFloat(elem.parentNode.getAttribute('JsTreeDepthY')) + i);
+      } else { 
+        elem.setAttribute('JsTreeDepthY', parseFloat(el.children[i-1].getAttribute('JsTreeDepthY')) + 1);
+      }
+      Explode(el.children[i]);                            
+      rrr = rrr - 1;     
+      if (maxRRR < rrr) { 
+	    maxRRR = rrr; 
+      }
+    }
+	  
   }
-  if (el.className) { 
-    el.setAttribute("class",el.className + " JsTree"); 
-  } else { 
-    el.setAttribute("class","JsTree"); 
-  }
-
-            
-            for(var i=0;i<el.children.length;i++) {
-           rrr=rrr+1; if(maxRRR<rrr){maxRRR=rrr;}  
-              
-                   var elem = el.children[i];
-
-                   
-          
-                  
-if(i==0){elem.setAttribute("JsTreeDepthY",parseFloat(elem.parentNode.getAttribute('JsTreeDepthY'))+i);}
-else{elem.setAttribute("JsTreeDepthY",parseFloat(el.children[i-1].getAttribute('JsTreeDepthY'))+1);}
-                 
-
-                                   
-                                                    
-                        Explode(el.children[i]);                            
-           rrr=rrr-1;     
-           if(maxRRR<rrr){maxRRR=rrr;}
-
-                                                                               
-
-                         
-                                                  }
-
-                        }
+}
 
 
+function graaaa(foCol, foSiz, sceCol, ratio) {
 
-                     }
+  MakeThemComment();
+  graphTag();
 
+  var celIn = document.createElement("span");
+  celIn.setAttribute("id","JStreesID");
+  celIn.setAttribute("style","position:absolute;visibility:hidden;height:auto;width:auto;");
+  document.getElementsByTagName("body")[0].appendChild(celIn);
 
+  var tah = document.getElementById('fff');
+  MakeThemUnComment();
+  var h = tah.getElementsByTagName("*");
+  var hLen = h.length;
 
+  for (v = 0; v< hLen; v++) {
+    var ahEl = h[v];
+    if (h[v].children.length > 0) {
+      var y1 = parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio;
+      var y2 = parseFloat(ahEl.children[0].getAttribute('JsTreeDepthY'))*ratio;
+      var x1 = parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio;
+      var x2 = parseFloat(ahEl.children[0].getAttribute('JsTreeDepthX'))*ratio;
+      var oy1 = parseFloat(ahEl.children[0].getAttribute('JsTreeDepthY'))*ratio;
+      var oy2 = parseFloat(ahEl.children[h[v].children.length-1].getAttribute('JsTreeDepthY'))*ratio;
+      var ox1 =  parseFloat(ahEl.children[0].getAttribute('JsTreeDepthX'))*ratio;
+      var ox2 =  parseFloat(ahEl.children[ahEl.children.length-1].getAttribute('JsTreeDepthX'))*ratio;
 
-
-
-
-
-
-
-
-
-
-function graaaa(foCol,foSiz,sceCol,ratio){
-
-MakeThemComment();
-graphTag();
-
-var celIn = document.createElement("span");
-celIn.setAttribute("id","JStreesID");
-celIn.setAttribute("style","position:absolute;visibility:hidden;height:auto;width:auto;");
-document.getElementsByTagName("body")[0].appendChild(celIn);
-
-
-
-
-
-var tah = document.getElementById('fff');
-MakeThemUnComment();
-var h = tah.getElementsByTagName("*");
-
-
-var hLen = h.length;
-
- 
-      for (v=0;v<hLen;v++){
-
-var ahEl = h[v];
-      
-         if(h[v].children.length>0){
-
-                   
-
-var y1 =  parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio;
-var y2 =  parseFloat(ahEl.children[0].getAttribute('JsTreeDepthY'))*ratio;
-
-                    
-
-var x1 =  parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio;
-var x2 =  parseFloat(ahEl.children[0].getAttribute('JsTreeDepthX'))*ratio;
-
-
-
-var oy1 =  parseFloat(ahEl.children[0].getAttribute('JsTreeDepthY'))*ratio;
-var oy2 =  parseFloat(ahEl.children[h[v].children.length-1].getAttribute('JsTreeDepthY'))*ratio;
-
-
-                    
-
-var ox1 =  parseFloat(ahEl.children[0].getAttribute('JsTreeDepthX'))*ratio;
-var ox2 =  parseFloat(ahEl.children[ahEl.children.length-1].getAttribute('JsTreeDepthX'))*ratio;
-
-                  MakeThemComment();
+      MakeThemComment();
              
-                      graph(x1,y1,x2,y2,sceCol);
-                      graph(ox1,oy1,ox2,oy2,sceCol);
+      graph(x1, y1, x2, y2, sceCol);
+      graph(ox1, oy1, ox2, oy2, sceCol);
 
-                  MakeThemUnComment(); 
+       MakeThemUnComment(); 
+   }
+   var TheLabelx = ahEl.textContent;
+   MakeThemComment();
 
-
-                 
-                                   }
-                 var TheLabelx = ahEl.textContent;
-                 MakeThemComment();
-
-var c1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-
-
-c1.setAttribute("x",parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio);
-c1.setAttribute("y",parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio);
+   var c1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+   c1.setAttribute("x",parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio);
+   c1.setAttribute("y",parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio);
 
 
 c1.setAttribute("fill",foCol);
