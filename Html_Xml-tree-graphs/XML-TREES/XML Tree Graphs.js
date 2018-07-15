@@ -6,261 +6,170 @@ var tagReplLen = tagRepl.length;
 
 
 
-function removeHTMLComments(d){
-
-
-
-				 
-	if(!d)
+function removeHTMLComments(d) {
+  if (!d)
         return;
-    if(d.nodeType==8)
+  if(d.nodeType==8)
        d.parentNode.removeChild(d);
-    if(!d.childNodes)
+  if(!d.childNodes)
         return;
-    for(var i=0;i<d.childNodes.length;i++){
+  for (var i=0; i < d.childNodes.length; i++) {
         removeHTMLComments(d.childNodes[i]);
-                                          }
-				 
-				 
-				 
-				 
-				 
-                               }
-							 
-							 
-							
-							
-							
-function MakeThemComment()  {
+  }
+}
+							 							
+function MakeThemComment() {	
+  var contentCustom = document.getElementById("fff").innerHTML;
+  document.getElementById("fff").innerHTML="<!--aDeadDivs"+contentCustom+"aDeadDivs-->";
+}
 
-var contentCustom = document.getElementById("fff").innerHTML;
-document.getElementById("fff").innerHTML="<!--aDeadDivs"+contentCustom+"aDeadDivs-->";
+function MakeThemUnComment() {
+  var theInnerContx = document.getElementById('fff').innerHTML;
+  document.getElementById('fff').innerHTML=theInnerContx.substring(13,theInnerContx.length-13);
+}
 
+var validStart = 0;      // this var is used to check if the buttons "Start" and "Create Graph" have been pressed with the correct order
+var setByUserInput = ''; // this var will hold your original input so it can be embed to the graph-window at the end of script.
 
-                            }
-
-function MakeThemUnComment(){
-var theInnerContx = document.getElementById("fff").innerHTML;
-
-document.getElementById("fff").innerHTML=theInnerContx.substring(13,theInnerContx.length-13);
-                            }
-
-
-
-
-
-
-
-
-
-var validStart=0;      // this var is used to check if the buttons "Start" and "Create Graph" have been pressed with the correct order
-var setByUserInput=""; // this var will hold your original input so it can be embed to the graph-window at the end of script.
-
-
-function StartProgress(scrsource){
-
-
-
-document.getElementById("fff").innerHTML="";
-
-
-
-var objeHt = document.getElementById("fff");
-
-//  This for loop replaces all tagNames which match to predefined tags by adding a '^' to the end of them.So they can be parsed with DOM methods without problem.
-for(var cu=0;cu<tagReplLen;cu++){
-
-      var regA = new RegExp(tagRepl[cu],"gim");
-      var regB = new RegExp("<\/"+tagRepl[cu].substring(1),"gim");
-      var regC = new RegExp(tagRepl[cu].substring(0,tagRepl[cu].length-1)+"\\s","gim");
-      
-                   if(regA.test(scrsource)){
-
-                        scrsource = scrsource.replace(regA,tagRepl[cu].substr(0,tagRepl[cu].length-1)+'^>');
-
-                                           }
-
-                   if(regB.test(scrsource)){
-
-
-                        scrsource = scrsource.replace(regB,'</'+tagRepl[cu].substr(1,tagRepl[cu].length-2)+'^>');
-
-
-                                           }
-                   if(regC.test(scrsource)){ 
-
-                        scrsource = scrsource.replace(regC,'<'+tagRepl[cu].substr(1,tagRepl[cu].length-2)+'^ ');
-
-                                           }
-
-                                }
+function StartProgress(scrsource) {
+  document.getElementById('fff').innerHTML = "";
+  var objeHt = document.getElementById('fff');
+  //  This for loop replaces all tagNames which match to predefined tags by adding a '^' to the end of them.So they can be parsed with DOM methods without problem.
+  for (var cu = 0; cu < tagReplLen; cu++) {
+    var regA = new RegExp(tagRepl[cu], 'gim');
+    var regB = new RegExp("<\/"+tagRepl[cu].substring(1), 'gim');
+    var regC = new RegExp(tagRepl[cu].substring(0,tagRepl[cu].length-1)+"\\s", 'gim');
+	  
+    if (regA.test(scrsource)) {
+      scrsource = scrsource.replace(regA,tagRepl[cu].substr(0,tagRepl[cu].length-1)+'^>');
+    }
+    if (regB.test(scrsource)) {
+      scrsource = scrsource.replace(regB,'</'+tagRepl[cu].substr(1,tagRepl[cu].length-2)+'^>');
+    }
+    if (regC.test(scrsource)) { 
+      scrsource = scrsource.replace(regC,'<'+tagRepl[cu].substr(1,tagRepl[cu].length-2)+'^ ');
+    }
+  }
+  objeHt.innerHTML = scrsource;
+  //removeHTMLComments(document.getElementById("fff"));     Uncomment this function to remove all the comments from xml.But be sure that your xml does not have tagNames with the same name with html predefined tags
+  objeHt.setAttribute('JsTreeDepthY', 1);
+  AddIdentifier(objeHt); // ---> this function will add a unique identifier to every element.It will be usefull for javascript embed function of the output window.
+  setByUserInput = scrsource;
+  Explode(objeHt);     // this function adds x and y coordinates based on inheritance. These coordinates will be used for the svg creation.
+  MakeThemComment();   // Puts your input inside comments to disable it.
+  addCustomOptions();  // Creates the output options.
+  validStart = 1;
+}
 
 
 
-objeHt.innerHTML=scrsource;
-//removeHTMLComments(document.getElementById("fff"));     Uncomment this function to remove all the comments from xml.But be sure that your xml does not have tagNames with the same name with html predefined tags
-objeHt.setAttribute("JsTreeDepthY",1);
+function AddIdentifier(parentCont) {
+  var ouw = parentCont.getElementsByTagName('*');
+  var ouwLen = ouw.length;
+  for (var rte = 0; rte < ouwLen; rte++) {
+    ouw[rte].setAttribute('treeIdentifier', rte); 
+  }
+}
 
-AddIdentifier(objeHt); // ---> this function will add a unique identifier to every element.It will be usefull for javascript embed function of the output window.
-setByUserInput=scrsource;
+function parseCode() {   
+	
+  if (validStart == 1) {
+	  
+    document.getElementById('graphContent').innerHTML = '';
 
+    if (document.getElementById('fontcolor').value != null && document.getElementById('fontcolor').value != '') {
+      var foCol = document.getElementById('fontcolor').value;
+    } else { 
+      alert('Input for Font Color cant be null');
+      return;
+    }
+	  
+    if (document.getElementById('fontsize').value != null && document.getElementById('fontsize').value != "") {
+      var foSiz = document.getElementById('fontsize').value;
+    } else { 
+      alert('Input for Font Size cant be null');
+      return;
+    }
+	  
+    if (document.getElementById('sceletoncolor').value != null && document.getElementById("sceletoncolor").value != '') {
+      var sceCol = document.getElementById('sceletoncolor').value;
+    } else { 
+      alert('Input for Sceleton Color cant be null');
+      return;
+    }
+	  
+    if (document.getElementById('ratio').value != null && document.getElementById('ratio').value != '') {
+      var ratio = document.getElementById('ratio').value;
+    } else { 
+      alert('Input for Ratio cant be null');
+      return;
+    }
 
-
-Explode(objeHt);     // this function adds x and y coordinates based on inheritance. These coordinates will be used for the svg creation.
-MakeThemComment();   // Puts your input inside comments to disable it.
-addCustomOptions();  // Creates the output options.
-
-validStart=1;
-                               
-
-                                 }
-
-
-
-function AddIdentifier(parentCont){
-
-var ouw = parentCont.getElementsByTagName('*');
-var ouwLen = ouw.length;
-           for(var rte=0;rte<ouwLen;rte++){
-		               ouw[rte].setAttribute("treeIdentifier",rte); 
-                                          }
-                        }
-
-
-
-
-function parseCode(){                              
-                 if(validStart==1){
-document.getElementById("graphContent").innerHTML="";
-
-if(document.getElementById("fontcolor").value!=null && document.getElementById("fontcolor").value!="")        {
-                                                                  var foCol = document.getElementById("fontcolor").value;
-                                                                                                              }
-else                                                                                                          {alert('Input for Font Color cant be null');return;
-                                                                                                              }
-if(document.getElementById("fontsize").value!=null && document.getElementById("fontsize").value!="")          {
-                                                                  var foSiz = document.getElementById("fontsize").value;
-                                                                                                              }
-else                                                                                                          {alert('Input for Font Size cant be null');return;
-                                                                                                              }
-if(document.getElementById("sceletoncolor").value!=null && document.getElementById("sceletoncolor").value!=""){
-                                                                  var sceCol = document.getElementById("sceletoncolor").value;
-                                                                                                              }
-else                                                                                                          {alert('Input for Sceleton Color cant be null');return;
-                                                                                                              }
-if(document.getElementById("ratio").value!=null && document.getElementById("ratio").value!="")                {
-                                                                  var ratio = document.getElementById("ratio").value;
-                                                                                                              }
-else                                                                                                          {alert('Input for Ratio cant be null');return;
-                                                                                                              }
-
-MakeThemUnComment();
-graaaa(foCol,foSiz,sceCol,ratio);// It creates the Graph
-MakeThemComment();
-
-
-var newWindow = window.open();
-
-newWindow.document.write("<script type='text/javascript'>var r=1;function showInfo(numbe,x,y){if(!document.getElementById('infobox')){var e=document.getElementById('hiddenCont').getElementsByTagName('*')[numbe];var nm=document.createElement('DIV');nm.setAttribute('id','infobox');nm.setAttribute('style','left:'+x+';top:'+y+';position:absolute;width:auto;height:auto;display:inline-block;background-color:#E8E8E8;font-size:14px;');document.getElementsByTagName('body')[0].appendChild(nm);var innerAtributes='';for(var d=0;d<e.attributes.length;d++){innerAtributes=innerAtributes+'<div><div style=\"float:left;display:inline-block;text-decoration:underline;\">'+e.attributes[d].nodeName+'</div><div style=\"float:right;display:inline-block;margin-left:20px;\">'+e.attributes[d].value+'</div></div><br>';}nm.innerHTML='<div><div style=\"float:left;text-decoration:underline;display:inline-block;\">Tag Name:</div><div style=\"float:right;display:inline-block;margin-left:20px;\">'+e.tagName+'</div></div><br>'+innerAtributes;}}function hideInfo(){document.getElementById('infobox').parentNode.removeChild(document.getElementById('infobox'));}</script><div id='hiddenCont' style='display:none;'>"+setByUserInput+"</div>"+document.getElementById('graphContent').innerHTML);
-newWindow.document.close();
-
-
-
-document.getElementById("JsTreesGraph").style.display="none";
-validStart=0;
-setByUserInput="";
-                                  }
-          else                    {
-                                      alert('Before you create the graph, you must click "the Start" button');
-                                  }
+    MakeThemUnComment();
+    graaaa(foCol, foSiz, sceCol, ratio);// It creates the Graph
+    MakeThemComment();
+	  
+    var newWindow = window.open();
+    newWindow.document.write("<script type='text/javascript'>var r=1;function showInfo(numbe,x,y){if(!document.getElementById('infobox')){var e=document.getElementById('hiddenCont').getElementsByTagName('*')[numbe];var nm=document.createElement('DIV');nm.setAttribute('id','infobox');nm.setAttribute('style','left:'+x+';top:'+y+';position:absolute;width:auto;height:auto;display:inline-block;background-color:#E8E8E8;font-size:14px;');document.getElementsByTagName('body')[0].appendChild(nm);var innerAtributes='';for(var d=0;d<e.attributes.length;d++){innerAtributes=innerAtributes+'<div><div style=\"float:left;display:inline-block;text-decoration:underline;\">'+e.attributes[d].nodeName+'</div><div style=\"float:right;display:inline-block;margin-left:20px;\">'+e.attributes[d].value+'</div></div><br>';}nm.innerHTML='<div><div style=\"float:left;text-decoration:underline;display:inline-block;\">Tag Name:</div><div style=\"float:right;display:inline-block;margin-left:20px;\">'+e.tagName+'</div></div><br>'+innerAtributes;}}function hideInfo(){document.getElementById('infobox').parentNode.removeChild(document.getElementById('infobox'));}</script><div id='hiddenCont' style='display:none;'>"+setByUserInput+"</div>"+document.getElementById('graphContent').innerHTML);
+    newWindow.document.close();
+    document.getElementById('JsTreesGraph').style.display = 'none';
+    validStart = 0;
+    setByUserInput = '';
+	  
+  } else {
+      alert('Before you create the graph, you must click "the Start" button');
+  }
                               
-                            }
+}
+
+
+function addCustomOptions() {
+  var txtInOption = '';
+  var checkTag = 'checked';
+  var checkText = '';
+  for (var ts = 2; ts < maxRRR+1; ts++) {         
+    if (ts == maxRRR) {
+      checkTag = '';
+      checkText = 'checked';
+    }
+   txtInOption += '<span style="width:80px;float:left;"> <input type="checkbox" name="layoutWHat'+ts+'" value="" style="margin-left:30%;" '+checkTag+'></span><span style="width:100px;float:left;"><input type="checkbox" name="layoutWHat'+ts+'" value="" style="margin-left:30%;"'+checkText+'> </span><span style="width:120px;float:left;"><input type="text" class="atrributeLAyout" style="width:90px;margin:auto;"></span><span style="width:100px;float:left;"><input type="text" id="depthLayer" style="width:90px;margin:auto;" value="'+(ts-2)+'"readonly></span><span style="width:100px;float:left;margin-left:12px;"><input type="text" class="separateLAyout" style="width:100px;margin:auto;"></span><span style="width:100px;float:left;margin-left:20px;"><input type="text" class="LabelLength" style="width:100px;margin:auto;" value="6"></span>';
+  }	
+  document.getElementById("checkFields").innerHTML = txtInOption;
+}
 
 
 
+var rrr = 1;
+var maxRRR = 0;
+var b = 0;
 
-
-
-function addCustomOptions(){
-var txtInOption="";
-var checkTag  ="checked";
-var checkText ="";
-         for(var ts=2;ts<maxRRR+1;ts++){         
-             if(ts==maxRRR){checkTag="";checkText="checked";}
-
-txtInOption +='<span style="width:80px;float:left;"> <input type="checkbox" name="layoutWHat'+ts+'" value="" style="margin-left:30%;" '+checkTag+'></span><span style="width:100px;float:left;"><input type="checkbox" name="layoutWHat'+ts+'" value="" style="margin-left:30%;"'+checkText+'> </span><span style="width:120px;float:left;"><input type="text" class="atrributeLAyout" style="width:90px;margin:auto;"></span><span style="width:100px;float:left;"><input type="text" id="depthLayer" style="width:90px;margin:auto;" value="'+(ts-2)+'"readonly></span><span style="width:100px;float:left;margin-left:12px;"><input type="text" class="separateLAyout" style="width:100px;margin:auto;"></span><span style="width:100px;float:left;margin-left:20px;"><input type="text" class="LabelLength" style="width:100px;margin:auto;" value="6"></span>';
-
-
-                                    }
-document.getElementById("checkFields").innerHTML=txtInOption;
-
-                           }
-
-
-
-
-var rrr=1;
-
-
-var maxRRR=0;
-
-var b=0;
-
-
-
-
-
-
-
-function Explode(el){
-                                                                                                                                                                     
-
-
-                                                           el.setAttribute('JsTreeDepthX',rrr);
-
-                                                          
-
-
-
-         if(el.children.length>0){  
-       
-                                     if(document.getElementsByClassName("JsTree").length>0){
-
-
-                                      var lastElo =  el.parentNode.getElementsByClassName("JsTree");
-                                       
-
-                                    
-                                      var TempNumber=0;
-                                    if(lastElo.length>0){
-                                      for(var efh=0;efh<lastElo.length;efh++){
-                                       var GetThisY = parseFloat(lastElo[efh].getAttribute('JsTreeDepthY'));
-                                       var GetNodes = lastElo[efh].children.length;
-                                       var sumIt = GetThisY+GetNodes;
-									   
-									   
-                                                if(sumIt>TempNumber){
-												                 if(sumIt>k){TempNumber=sumIt;                  }
-												                 else       {TempNumber=sumIt+Math.abs(sumIt-k);}
-												                    }
-
-                                                                             }
-                                      
-                                       el.setAttribute("JsTreeDepthY",TempNumber);
-
-                                                        }
-
-
-
-
-
-                                                                                              }
-
-
-
-
-                                     if(el.className){el.setAttribute("class",el.className+" JsTree");}
-                                      else           {el.setAttribute("class","JsTree");              }
+function Explode(el) {
+  el.setAttribute('JsTreeDepthX', rrr);
+  if (el.children.length > 0) {  
+    if (document.getElementsByClassName('JsTree').length > 0 ) {
+      var lastElo =  el.parentNode.getElementsByClassName('JsTree');
+      var TempNumber = 0;
+      if (lastElo.length > 0) {
+      for (var efh = 0; efh < lastElo.length; efh++) {
+        var GetThisY = parseFloat(lastElo[efh].getAttribute('JsTreeDepthY'));
+        var GetNodes = lastElo[efh].children.length;
+        var sumIt = GetThisY+GetNodes;
+	if (sumIt > TempNumber) {
+	  if (sumIt > k){ 
+            TempNumber = sumIt; 
+	  } else { 
+            TempNumber = sumIt + Math.abs(sumIt-k); 
+	  }
+	}
+      }
+      el.setAttribute('JsTreeDepthY', TempNumber);
+    }
+  }
+  if (el.className) { 
+    el.setAttribute("class",el.className + " JsTree"); 
+  } else { 
+    el.setAttribute("class","JsTree"); 
+  }
 
             
             for(var i=0;i<el.children.length;i++) {
