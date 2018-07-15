@@ -22,18 +22,18 @@ function NewTree() {
 				  
     if (self.iFrameEl === '') {
       iframe = document.createElement('iframe'); 
-	  iframe.setAttribute('style', 'display:none;');
+      iframe.setAttribute('style', 'display:none;');
       self.iFrameEl = iframe;
-	} else {
-	  iframe = self.iFrameEl;
-	}
+    } else {
+      iframe = self.iFrameEl;
+    }
 
     document.body.appendChild(iframe);
             
     iframe.onload = function() {		
       self.iFrameDom = iframe.contentWindow.document;   				   
       iframe.contentWindow.document.getElementsByTagName('body')[0].setAttribute('JsTreeDepthY', 1);
-	  iframe.contentWindow.document.getElementsByTagName('body')[0].setAttribute('JsTreeDepthX', 1);	
+      iframe.contentWindow.document.getElementsByTagName('body')[0].setAttribute('JsTreeDepthX', 1);	
 	  
       self.AddIdentifier(iframe.contentWindow.document.getElementsByTagName('body')[0]);
       setByUserInput = '';
@@ -60,33 +60,27 @@ function NewTree() {
 
       if (el.children.length > 0) {  
        
-        if (Dom_Tree.getElementsByClassName('JsTree').length > 0) {
-			
+        if (Dom_Tree.getElementsByClassName('JsTree').length > 0) {			
           var lastElo = el.parentNode.getElementsByClassName('JsTree');
-
-          var TempNumber = 0;
-		  
-          if (lastElo.length > 0) {
-	    
-            for (var efh =0; efh < lastElo.length; efh++) { 
-			
+          var TempNumber = 0;		  
+          if (lastElo.length > 0) {	    
+            for (var efh =0; efh < lastElo.length; efh++) { 			
               var GetThisY = parseInt(lastElo[efh].getAttribute('JsTreeDepthY'), 10);
-			  var GetNodes = parseInt(lastElo[efh].children[lastElo[efh].children.length - 1].getAttribute('JsTreeDepthY'), 10) - GetThisY + 1;
-              var sumIt = GetThisY+GetNodes;
-                                                
+	      var GetNodes = parseInt(lastElo[efh].children[lastElo[efh].children.length - 1].getAttribute('JsTreeDepthY'), 10) - GetThisY + 1;
+              var sumIt = GetThisY + GetNodes;                                            
               if (sumIt > TempNumber) {
-				if (sumIt>k) { 
+			if (sumIt>k) { 
 				  TempNumber = sumIt;  
 				  console.log('sumIt');                         
-			    } else { 
+			 } else { 
 				  TempNumber = sumIt+Math.abs(sumIt-k);				    
-				}
-			  }
-			  if (el.id == 'rules') {
-				console.log('Children Length' + GetNodes + ' Y '+ GetThisY);
-				console.log('TempNumber : ' + TempNumber);
-				console.log('K : ' + k);
-			  }
+			}
+	        }
+		if (el.id == 'rules') {
+		   console.log('Children Length' + GetNodes + ' Y '+ GetThisY);
+		   console.log('TempNumber : ' + TempNumber);
+		  console.log('K : ' + k);
+		 }
 			  
             }    												 
             el.setAttribute('JsTreeDepthY', TempNumber);												             
@@ -95,38 +89,34 @@ function NewTree() {
         }
 		
         if (el.className) { 
-		  el.setAttribute('class', el.className + ' JsTree'); 
-		} else { 
-		  el.setAttribute('class', 'JsTree');  
-		}
+	  el.setAttribute('class', el.className + ' JsTree'); 
+	} else { 
+           el.setAttribute('class', 'JsTree');  
+	}
 
             
         for (var i = 0 ;i < el.children.length; i++) {   
           rrr = rrr + 1; 
-		  if (maxRRR < rrr) { 
-		    maxRRR = rrr; 
-		  }  
-                                                      
-          var elem = el.children[i];
-                
+          if (maxRRR < rrr) { 
+	    maxRRR = rrr; 
+	  }                                                       
+          var elem = el.children[i];              
           if (i == 0) { 
 		    elem.setAttribute('JsTreeDepthY', parseInt(elem.parentNode.getAttribute('JsTreeDepthY'), 10) + i);  
           } else {     
 		    elem.setAttribute('JsTreeDepthY', parseInt(el.children[i - 1].getAttribute('JsTreeDepthY'), 10) + 1); 
-          }
-                        
-          Explode(el.children[i], parseInt(elem.getAttribute('JsTreeDepthY'), 10));  
-                                                    													  
+          }                        
+          Explode(el.children[i], parseInt(elem.getAttribute('JsTreeDepthY'), 10));                                                     													  
           rrr = rrr - 1;     
           if (maxRRR < rrr) { 
-		     maxRRR = rrr; 
-		  }                                                    
+		maxRRR = rrr; 
+	   }                                                    
         }
 
       }
                            
     }
-	Explode(Dom_Tree);
+    Explode(Dom_Tree);
     self.MaxR = maxRRR;					   
 		 
   };
@@ -209,18 +199,18 @@ function NewTree() {
       }
 
       var c2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-          c2.setAttribute('width',comptutedWidth+ratio/10);
-          c2.setAttribute('height',comptutedHeight+ratio/10);
+          c2.setAttribute('width',comptutedWidth + ratio/10);
+          c2.setAttribute('height',comptutedHeight + ratio/10);
           c2.setAttribute('fill',sceCol);
-          c2.setAttribute('x',parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio-(comptutedWidth+ratio/10)/2);
-          c2.setAttribute('y',parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio-(comptutedHeight+ratio/10)/2);
+          c2.setAttribute('x', parseFloat(ahEl.getAttribute('JsTreeDepthX')) * ratio - (comptutedWidth+ratio/10)/2);
+          c2.setAttribute('y', parseFloat(ahEl.getAttribute('JsTreeDepthY')) * ratio - (comptutedHeight+ratio/10)/2);
 
       var c3 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-          c3.setAttribute('width', comptutedWidth+ratio/10);
-          c3.setAttribute('height', comptutedHeight+ratio/10);
+          c3.setAttribute('width', comptutedWidth + ratio/10);
+          c3.setAttribute('height', comptutedHeight + ratio/10);
           c3.setAttribute('fill', 'rgba(0,0,255,0.01)');
-          c3.setAttribute('x', parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio - (comptutedWidth + ratio/10)/2);
-          c3.setAttribute('y', parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio - (comptutedHeight + ratio/10)/2);
+          c3.setAttribute('x', parseFloat(ahEl.getAttribute('JsTreeDepthX')) * ratio - (comptutedWidth + ratio/10)/2);
+          c3.setAttribute('y', parseFloat(ahEl.getAttribute('JsTreeDepthY')) * ratio - (comptutedHeight + ratio/10)/2);
           c3.setAttribute('onmouseover', "showInfo(" + ahEl.getAttribute('treeIdentifier') + ",parseInt(this.getAttribute('x'))+parseInt(this.getAttribute('width'))+10,this.getAttribute('y'))");
           c3.setAttribute('onmouseout', 'hideInfo();');
  
