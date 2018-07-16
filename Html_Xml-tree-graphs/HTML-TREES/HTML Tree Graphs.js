@@ -1,4 +1,4 @@
-//Copyright TranceIntel 2014
+//Copyright Chris B 2014
 
 
 
