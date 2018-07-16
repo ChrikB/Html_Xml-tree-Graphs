@@ -19,8 +19,8 @@ function removeHTMLComments(d) {
 }
 							 							
 function MakeThemComment() {	
-  var contentCustom = document.getElementById("fff").innerHTML;
-  document.getElementById("fff").innerHTML="<!--aDeadDivs"+contentCustom+"aDeadDivs-->";
+  var contentCustom = document.getElementById('fff').innerHTML;
+  document.getElementById('fff').innerHTML="<!--aDeadDivs"+contentCustom+"aDeadDivs-->";
 }
 
 function MakeThemUnComment() {
@@ -32,7 +32,7 @@ var validStart = 0;      // this var is used to check if the buttons "Start" and
 var setByUserInput = ''; // this var will hold your original input so it can be embed to the graph-window at the end of script.
 
 function StartProgress(scrsource) {
-  document.getElementById('fff').innerHTML = "";
+  document.getElementById('fff').innerHTML = '';
   var objeHt = document.getElementById('fff');
   //  This for loop replaces all tagNames which match to predefined tags by adding a '^' to the end of them.So they can be parsed with DOM methods without problem.
   for (var cu = 0; cu < tagReplLen; cu++) {
@@ -166,9 +166,9 @@ function Explode(el) {
       }
     }
     if (el.className) { 
-      el.setAttribute("class",el.className + " JsTree"); 
+      el.setAttribute('class', el.className + ' JsTree'); 
     } else { 
-      el.setAttribute("class","JsTree"); 
+      el.setAttribute('class', 'JsTree'); 
     }
     for (var i = 0; i < el.children.length; i++) {
       rrr = rrr+1; 
@@ -197,14 +197,14 @@ function graaaa(foCol, foSiz, sceCol, ratio) {
   MakeThemComment();
   graphTag();
 
-  var celIn = document.createElement("span");
-  celIn.setAttribute("id","JStreesID");
-  celIn.setAttribute("style","position:absolute;visibility:hidden;height:auto;width:auto;");
-  document.getElementsByTagName("body")[0].appendChild(celIn);
+  var celIn = document.createElement('span');
+  celIn.setAttribute('id', 'JStreesID');
+  celIn.setAttribute('style', 'position:absolute;visibility:hidden;height:auto;width:auto;');
+  document.getElementsByTagName('body')[0].appendChild(celIn);
 
   var tah = document.getElementById('fff');
   MakeThemUnComment();
-  var h = tah.getElementsByTagName("*");
+  var h = tah.getElementsByTagName('*');
   var hLen = h.length;
 
   for (v = 0; v< hLen; v++) {
@@ -224,207 +224,150 @@ function graaaa(foCol, foSiz, sceCol, ratio) {
       graph(x1, y1, x2, y2, sceCol);
       graph(ox1, oy1, ox2, oy2, sceCol);
 
-       MakeThemUnComment(); 
-   }
-   var TheLabelx = ahEl.textContent;
-   MakeThemComment();
-
-   var c1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-   c1.setAttribute("x",parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio);
-   c1.setAttribute("y",parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio);
-
-
-c1.setAttribute("fill",foCol);
-c1.setAttribute("dy","0.35em");
-c1.setAttribute("style","font-size:"+foSiz+";text-anchor:middle;"); 
-c1.textContent=GrapLabel(ahEl,TheLabelx);
-
-document.getElementById("JsTreesGraph").appendChild(c1); 
-  
-document.getElementById("JStreesID").innerHTML=c1.textContent;
-var cel = document.getElementById("JStreesID");
-
-
-
-if(c1.currentStyle){
-var comptutedWidth  = parseFloat(cel.currentStyle.width);
-var comptutedHeight = parseFloat(cel.currentStyle.height);
-                   }
-else               { 
-var comptutedWidth  = parseFloat(window.getComputedStyle(cel, null).getPropertyValue("width"));
-var comptutedHeight = parseFloat(window.getComputedStyle(cel, null).getPropertyValue("height"));
-                   }
-
-
-
-
-var c2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-c2.setAttribute("width",comptutedWidth+ratio/10);
-c2.setAttribute("height",comptutedHeight+ratio/10);
-c2.setAttribute("fill",sceCol);
-
-
-c2.setAttribute("x",parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio-(comptutedWidth+ratio/10)/2);
-c2.setAttribute("y",parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio-(comptutedHeight+ratio/10)/2);
-
-
-var c3 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-c3.setAttribute("width",comptutedWidth+ratio/10);
-c3.setAttribute("height",comptutedHeight+ratio/10);
-c3.setAttribute("fill","rgba(0,0,255,0.01)");
-    c3.setAttribute("x",parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio-(comptutedWidth+ratio/10)/2);
-c3.setAttribute("y",parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio-(comptutedHeight+ratio/10)/2);
-
-c3.setAttribute("onmouseover","showInfo("+ahEl.getAttribute('treeIdentifier')+",parseInt(this.getAttribute('x'))+parseInt(this.getAttribute('width'))+10,this.getAttribute('y'))");
-c3.setAttribute("onmouseout","hideInfo();");
-
-document.getElementById("JsTreesGraph").appendChild(c3); 
-
-document.getElementById("JsTreesGraph").insertBefore(c2,c1);
-
-
-
-                 MakeThemUnComment();
-
-
- 
-                              }
-
-
-
-var wid = 0;
-var heig = 0;
-
-                 MakeThemComment();
-
-
-
-var svgcontent = document.getElementById("JsTreesGraph").getElementsByTagName('rect');
-var svgcontentLen = svgcontent.length;
-for(var za=0;za<svgcontentLen;za++){
-var comparVarx = parseFloat(svgcontent[za].getAttribute('x'))+parseFloat(svgcontent[za].getAttribute('width'));
-var comparVary = parseFloat(svgcontent[za].getAttribute('y'))+parseFloat(svgcontent[za].getAttribute('height'));
-if(comparVarx>wid) {wid=comparVarx;}
-if(comparVary>heig){heig=comparVary;}
-
-                                   }
-
-
-document.getElementById("JsTreesGraph").style.height=heig+'px';
-document.getElementById("JsTreesGraph").style.width=wid+'px';
-
-
-                 MakeThemUnComment();
-
-                }
-
-
-
-
-
-function GrapLabel(el,v){
-var returned="";
-
-
-var keyOfChecked = parseInt(el.getAttribute('jstreedepthx')); 
-
-var Attributeset = document.getElementsByClassName("atrributeLAyout")[keyOfChecked-2];
-var Separateset  = document.getElementsByClassName("separateLAyout")[keyOfChecked-2];
-var separateSymbol="";
-var LabelLength  = document.getElementsByClassName("LabelLength")[keyOfChecked-2];
-if(Separateset.value!=null && Separateset.value!=""){separateSymbol=Separateset.value;}
-
-var checkedBoxes = document.getElementsByName("layoutWHat"+keyOfChecked);
-if(checkedBoxes[0].checked){if(returned!=""){returned=returned+separateSymbol+OriginalTag(el.tagName);   }else{returned=returned+OriginalTag(el.tagName);}}
-if(checkedBoxes[1].checked){if(returned!=""){returned=returned+separateSymbol+v;            }else{returned=returned+v;         }}
-if(Attributeset.value!=null && Attributeset.value!="" && el.hasAttribute(Attributeset.value)){
-                                  if(returned!=""){returned=returned+separateSymbol+el.getAttribute(Attributeset.value);}else{returned=returned+el.getAttribute(Attributeset.value);}
-                                                                                             }
-if(LabelLength.value!=null && LabelLength.value!=""){
-                         returned=returned.substring(0,parseInt(LabelLength.value));         
-                                                    }
-else                                                {
-                         returned=returned;
-                                                    }
-
-
-
-return returned;
-
-
-
-
-
-                     }
-
-
-function OriginalTag(nam){
-
-
-for(var acu=0;acu<tagReplLen;acu++){
-var reEx = new RegExp("^"+tagRepl[acu].substring(1,tagRepl[acu].length-1)+"\\^$","i");
-                               if(reEx.test(nam)){
-                                     var cleared = nam.match(/[^\^]+/g);return cleared;
-                                                 }
-                               else              {
-                                     var cleared = nam;
-                                                 }
-                                                                           
-                                     }
-
-return cleared;  
-
-
-
-
-
-                         }
-
-
-
-
-
-
-
-
-function graphTag(){
-
-var container = document.getElementById('graphContent');
-
-var mySvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-mySvg.setAttribute("version", "1.2");
-mySvg.setAttribute("baseProfile", "tiny");
-mySvg.setAttribute("id", "JsTreesGraph");
-
-
-container.appendChild(mySvg);
-
-                    }
-
-
-
-
-
-function graph(x1,y1,x2,y2,sceCol){
-
-
-
-var c1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-
-
-
-c1.setAttribute("x1",x1);
-c1.setAttribute("y1",y1);
-c1.setAttribute("x2",x2);
-c1.setAttribute("y2",y2);
-
-
-
-
-c1.setAttribute("stroke", sceCol);
-c1.setAttribute("stroke-width", "2");
-c1.setAttribute("fill", "none");
-
-document.getElementById("JsTreesGraph").appendChild(c1);
-
-               }
+      MakeThemUnComment(); 
+    }
+	  
+    var TheLabelx = ahEl.textContent;
+	  
+    MakeThemComment();
+
+    var c1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    c1.setAttribute('x', parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio);
+    c1.setAttribute('y', parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio);
+    c1.setAttribute('fill', foCol);
+    c1.setAttribute('dy', '0.35em');
+    c1.setAttribute('style', "font-size:"+foSiz+";text-anchor:middle;"); 
+    c1.textContent = GrapLabel(ahEl,TheLabelx);
+
+    document.getElementById('JsTreesGraph').appendChild(c1); 
+    document.getElementById('JStreesID').innerHTML = c1.textContent;
+	  
+    var cel = document.getElementById('JStreesID');
+
+    if (c1.currentStyle) {
+      var comptutedWidth  = parseFloat(cel.currentStyle.width);
+      var comptutedHeight = parseFloat(cel.currentStyle.height);
+    } else { 
+      var comptutedWidth  = parseFloat(window.getComputedStyle(cel, null).getPropertyValue('width'));
+      var comptutedHeight = parseFloat(window.getComputedStyle(cel, null).getPropertyValue('height'));
+    }
+
+    var c2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    c2.setAttribute("width",comptutedWidth+ratio/10);
+    c2.setAttribute("height",comptutedHeight+ratio/10);
+    c2.setAttribute("fill",sceCol);
+    c2.setAttribute("x",parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio-(comptutedWidth+ratio/10)/2);
+    c2.setAttribute("y",parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio-(comptutedHeight+ratio/10)/2);
+
+    var c3 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    c3.setAttribute('width', comptutedWidth+ratio/10);
+    c3.setAttribute('height', comptutedHeight+ratio/10);
+    c3.setAttribute('fill', 'rgba(0,0,255,0.01)');
+    c3.setAttribute('x', parseFloat(ahEl.getAttribute('JsTreeDepthX'))*ratio-(comptutedWidth+ratio/10)/2);
+    c3.setAttribute('y', parseFloat(ahEl.getAttribute('JsTreeDepthY'))*ratio-(comptutedHeight+ratio/10)/2);
+    c3.setAttribute('onmouseover', "showInfo("+ahEl.getAttribute('treeIdentifier')+",parseInt(this.getAttribute('x'))+parseInt(this.getAttribute('width'))+10,this.getAttribute('y'))");
+    c3.setAttribute('onmouseout', "hideInfo();");
+
+    document.getElementById('JsTreesGraph').appendChild(c3); 
+    document.getElementById('JsTreesGraph').insertBefore(c2,c1);
+	  
+    MakeThemUnComment();
+  }
+  var wid = 0;
+  var heig = 0;
+
+  MakeThemComment();
+
+  var svgcontent = document.getElementById('JsTreesGraph').getElementsByTagName('rect');
+  var svgcontentLen = svgcontent.length;
+  for (var za = 0; za < svgcontentLen; za++) {
+    var comparVarx = parseFloat(svgcontent[za].getAttribute('x'))+parseFloat(svgcontent[za].getAttribute('width'));
+    var comparVary = parseFloat(svgcontent[za].getAttribute('y'))+parseFloat(svgcontent[za].getAttribute('height'));
+    if(comparVarx > wid) { wid=comparVarx; } 
+    if(comparVary > heig){ heig=comparVary; }
+  }
+  document.getElementById('JsTreesGraph').style.height = heig + 'px';
+  document.getElementById('JsTreesGraph').style.width = wid +'px';
+  MakeThemUnComment();	
+}
+
+
+
+
+
+function GrapLabel(el, v) {
+  var returned = '';
+  var keyOfChecked = parseInt(el.getAttribute('jstreedepthx')); 
+  var Attributeset = document.getElementsByClassName('atrributeLAyout')[keyOfChecked-2];
+  var Separateset  = document.getElementsByClassName('separateLAyout')[keyOfChecked-2];
+  var separateSymbol = '';
+  var LabelLength  = document.getElementsByClassName('LabelLength')[keyOfChecked-2];
+  if (Separateset.value != null && Separateset.value != '') { 
+    separateSymbol = Separateset.value; 
+  }
+  var checkedBoxes = document.getElementsByName('layoutWHat' + keyOfChecked);
+  if (checkedBoxes[0].checked) {
+    if(returned != '') {
+      returned = returned+separateSymbol+OriginalTag(el.tagName);   
+    } else { 
+      returned = returned + OriginalTag(el.tagName);
+    } 
+  }
+  if (checkedBoxes[1].checked) {
+    if (returned != '') { 
+      returned = returned+separateSymbol + v;            
+    } else { 
+      returned = returned + v; 
+    }
+  }
+  if (Attributeset.value != null && Attributeset.value !='' && el.hasAttribute(Attributeset.value)) {
+    if (returned != '') { 
+      returned = returned + separateSymbol + el.getAttribute(Attributeset.value);
+    } else { 
+      returned = returned+el.getAttribute(Attributeset.value);
+    }
+  }
+	
+  if (LabelLength.value != null && LabelLength.value != '') {
+    returned=returned.substring(0, parseInt(LabelLength.value));         
+  } else {
+    returned = returned;
+  }	
+  return returned;
+}
+
+
+function OriginalTag(nam) {
+  for (var acu = 0 ; acu < tagReplLen; acu++) {
+    var reEx = new RegExp("^"+tagRepl[acu].substring(1,tagRepl[acu].length-1)+"\\^$", 'i');
+    if (reEx.test(nam)) {
+      var cleared = nam.match(/[^\^]+/g);
+      return cleared;
+    } else {
+      var cleared = nam;
+    }
+  }
+  return cleared;  
+}
+
+
+function graphTag() {
+  var container = document.getElementById('graphContent');
+  var mySvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  mySvg.setAttribute('version', '1.2');
+  mySvg.setAttribute('baseProfile', 'tiny');
+  mySvg.setAttribute('id', 'JsTreesGraph');
+  container.appendChild(mySvg);	
+}
+
+function graph(x1, y1, x2, y2, sceCol) {
+  var c1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  c1.setAttribute('x1', x1);
+  c1.setAttribute('y1', y1);
+  c1.setAttribute('x2', x2);
+  c1.setAttribute('y2', y2);
+  c1.setAttribute('stroke', sceCol);
+  c1.setAttribute('stroke-width', '2');
+  c1.setAttribute('fill', 'none');
+  document.getElementById('JsTreesGraph').appendChild(c1);
+}
